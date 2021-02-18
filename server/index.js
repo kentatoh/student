@@ -10,6 +10,10 @@ var handle = {
   "/student": handlers.reqStudent,
   "/search": handlers.reqSearch,
   "/upload": handlers.reqUpload,
+  "/indexCss": handlers.reqIndexCss,
+  "/studentCss": handlers.reqStudentCss,
+  "/searchCss": handlers.reqSearchCss,
+  "/uploadCss": handlers.reqUploadCss,
   error: handlers.error,
 };
 

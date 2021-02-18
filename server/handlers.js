@@ -2,50 +2,40 @@
 
 const fs = require("fs");
 
+// *************** Pages ***************
 function reqStart(req, res) {
   console.log("Start function was called");
-  fs.readFile("../html/index.html", function (err, data) {
-    res.writeHead(200, {
-      "Content-Type": "text/html",
-    });
-    res.write(data);
-    res.end();
+  res.writeHead(200, {
+    "Content-Type": "text/html",
   });
+  fs.createReadStream("../html/index.html", "utf-8").pipe(res);
 }
 
-function reqStudent(req, res) {
-  console.log("Student function was called");
-  fs.readFile("../html/student.html", function (err, data) {
-    res.writeHead(200, {
-      "Content-Type": "text/html",
-    });
-    res.write(data);
-    res.end();
+function reqStudentPage(req, res) {
+  console.log("Student page function was called");
+  res.writeHead(200, {
+    "Content-Type": "text/html",
   });
+  fs.createReadStream("../html/student.html", "utf-8").pipe(res);
 }
 
-function reqSearch(req, res) {
-  console.log("Search function was called");
-  fs.readFile("../html/search.html", function (err, data) {
-    res.writeHead(200, {
-      "Content-Type": "text/html",
-    });
-    res.write(data);
-    res.end();
+function reqSearchPage(req, res) {
+  console.log("Search page function was called");
+  res.writeHead(200, {
+    "Content-Type": "text/html",
   });
+  fs.createReadStream("../html/search.html", "utf-8").pipe(res);
 }
 
-function reqUpload(req, res) {
-  console.log("Upload function was called");
-  fs.readFile("../html/upload.html", function (err, data) {
-    res.writeHead(200, {
-      "Content-Type": "text/html",
-    });
-    res.write(data);
-    res.end();
+function reqUploadPage(req, res) {
+  console.log("Upload page function was called");
+  res.writeHead(200, {
+    "Content-Type": "text/html",
   });
+  fs.createReadStream("../html/upload.html", "utf-8").pipe(res);
 }
 
+// *************** CSS ***************
 function reqIndexCss(req, res) {
   console.log("Index CSS function was called");
   res.writeHead(200, {
@@ -78,6 +68,11 @@ function reqUploadCss(req, res) {
   fs.createReadStream("../css/upload.css").pipe(res);
 }
 
+// *************** Functionality ***************
+function reqStudentDetail(req, res) {
+  console.log("Student Detail funciton was called");
+}
+
 function error(req, res) {
   console.log("Error function was called");
   res.writeHead(404, {
@@ -88,9 +83,9 @@ function error(req, res) {
 }
 
 exports.reqStart = reqStart;
-exports.reqStudent = reqStudent;
-exports.reqSearch = reqSearch;
-exports.reqUpload = reqUpload;
+exports.reqStudentPage = reqStudentPage;
+exports.reqSearchPage = reqSearchPage;
+exports.reqUploadPage = reqUploadPage;
 
 exports.reqIndexCss = reqIndexCss;
 exports.reqStudentCss = reqStudentCss;

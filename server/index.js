@@ -7,9 +7,9 @@ const handlers = require("./handlers");
 var handle = {
   "/": handlers.reqStart,
   "/index": handlers.reqStart,
-  "/student": handlers.reqStudent,
-  "/search": handlers.reqSearch,
-  "/upload": handlers.reqUpload,
+  "/studentpage": handlers.reqStudentPage,
+  "/searchpage": handlers.reqSearchPage,
+  "/uploadpage": handlers.reqUploadPage,
   "/indexCss": handlers.reqIndexCss,
   "/studentCss": handlers.reqStudentCss,
   "/searchCss": handlers.reqSearchCss,

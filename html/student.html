@@ -14,33 +14,39 @@
     <div class="navbar-container">
       <div class="navbar">
         <a href="/" class="navbar-item">Home</a>
-        <a href="/student" class="navbar-item">Enter Student Details</a>
-        <a href="/search" class="navbar-item">Search Degree</a>
-        <a href="/upload" class="navbar-item">Upload Image</a>
+        <a href="/studentpage" class="navbar-item">Enter Student Details</a>
+        <a href="/searchpage" class="navbar-item">Search Degree</a>
+        <a href="/uploadpage" class="navbar-item">Upload Image</a>
       </div>
     </div>
     <!-- Student form -->
     <div class="content-container">
-      <form class="student-form" method="POST">
+      <form id="student-form" method="POST" onsubmit="return validate();">
         <h1>Student Details</h1>
-        <label for="id">Student ID: </label>
-        <input type="text" name="id" required="required" />
+        <label for="studentId">Student ID: </label>
+        <input type="text" name="studentId" required="required" />
         <br />
 
-        <label for="id">First Name: </label>
+        <label for="firstName">First Name: </label>
         <input type="text" name="firstName" required="required" />
         <br />
 
-        <label for="id">Last Name: </label>
+        <label for="lastName">Last Name: </label>
         <input type="text" name="lastName" required="required" />
         <br />
 
-        <label for="id">Age: </label>
+        <label for="age">Age: </label>
         <input type="text" name="age" required="required" />
         <br />
 
         <label for="gender">Gender: </label>
-        <input type="radio" id="male" name="gender" value="male" />
+        <input
+          type="radio"
+          id="male"
+          name="gender"
+          value="male"
+          required="required"
+        />
         <label for="male">Male</label>
         <input type="radio" id="female" name="gender" value="female" />
         <label for="female">Female</label>
@@ -52,9 +58,50 @@
         <input type="text" name="degree" required="required" />
         <br />
 
-        <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
+        <button type="submit" name="submitButton">Submit</button>
+        <button type="reset" name="resetButton">Reset</button>
       </form>
     </div>
+
+    <script type="text/javascript">
+      function validate() {
+        var reg = /\d/;
+        var studentId = document.forms["student-form"]["studentId"].value;
+        var firstName = document.forms["student-form"]["firstName"].value;
+        var lastName = document.forms["student-form"]["lastName"].value;
+        var age = document.forms["student-form"]["age"].value;
+        var degree = document.forms["student-form"]["degree"].value;
+        var gender = document.forms["student-form"]["gender"].value;
+
+        if (
+          studentId == "" ||
+          firstName == "" ||
+          lastName == "" ||
+          age == "" ||
+          gender == "" ||
+          degree == ""
+        ) {
+          alert("Please fill in all blanks");
+          return false;
+        } else if (reg.test(firstName)) {
+          alert("First Name should not contain number");
+          return false;
+        } else if (reg.test(lastName)) {
+          alert("Last name should not contain number");
+          return false;
+        } else if (reg.test(degree)) {
+          alert("Degree should not contain number");
+          return false;
+        }
+
+        reg = /^[0-9]/;
+        if (!reg.test(age)) {
+          alert("Age should contain numbers only");
+          return false;
+        }
+
+        return true;
+      }
+    </script>
   </body>
 </html>

@@ -1,6 +1,8 @@
 "use strict";
 
+const qs = require("querystring");
 const fs = require("fs");
+const { request } = require("http");
 
 // *************** Pages ***************
 function reqStart(req, res) {
@@ -70,7 +72,20 @@ function reqUploadCss(req, res) {
 
 // *************** Functionality ***************
 function reqStudentDetail(req, res) {
-  console.log("Student Detail funciton was called");
+  if (req.method == "POST") {
+    var data = "";
+    req.on("data", function (chunk) {
+      data += chunk;
+    });
+    console.log(data);
+    data = qs.parse(data);
+    console.log(data);
+  }
+  res.writeHead(200, {
+    "Content-Type": "text/html",
+  });
+  res.write("<h1>Saved to student.csv</h1>\n");
+  res.end;
 }
 
 function error(req, res) {
@@ -91,5 +106,7 @@ exports.reqIndexCss = reqIndexCss;
 exports.reqStudentCss = reqStudentCss;
 exports.reqSearchCss = reqSearchCss;
 exports.reqUploadCss = reqUploadCss;
+
+exports.reqStudentDetail = reqStudentDetail;
 
 exports.error = error;

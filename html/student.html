@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+      charset="UTF-8"
+    />
+    <link rel="stylesheet" type="text/css" href="css/student.css" />
+    <title>Student</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar-container">
+      <div class="navbar">
+        <a href="index.html" class="navbar-item">Home</a>
+        <a href="student.html" class="navbar-item">Enter Student Details</a>
+        <a href="/search" class="navbar-item">Search Degree</a>
+        <a href="/upload" class="navbar-item">Upload Image</a>
+      </div>
+    </div>
+    <div class="content-container">
+      <form class="student-form" method="POST">
+        <h1>Student Details</h1>
+        <label for="id">Student ID: </label>
+        <input type="text" name="id" required="required" />
+        <br />
+
+        <label for="id">First Name: </label>
+        <input type="text" name="firstName" required="required" />
+        <br />
+
+        <label for="id">Last Name: </label>
+        <input type="text" name="lastName" required="required" />
+        <br />
+
+        <label for="id">Age: </label>
+        <input type="text" name="age" required="required" />
+        <br />
+
+        <label for="gender">Gender: </label>
+        <input type="radio" id="male" name="gender" value="male" />
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female" />
+        <label for="female">Female</label>
+        <input type="radio" id="other" name="gender" value="other" />
+        <label for="other">Other</label>
+        <br />
+
+        <label for="degree">Degree: </label>
+        <input type="text" name="degree" required="required" />
+        <br />
+
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+      </form>
+    </div>
+  </body>
+</html>

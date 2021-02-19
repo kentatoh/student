@@ -3,6 +3,7 @@
 const qs = require("querystring");
 const fs = require("fs");
 const { request } = require("http");
+const { parse } = require("path");
 
 // *************** Pages ***************
 function reqStart(req, res) {
@@ -72,21 +73,38 @@ function reqUploadCss(req, res) {
 
 // *************** Functionality ***************
 function reqStudentDetail(req, res) {
+  console.log("Student Detail function was called");
+  var data = "";
   if (req.method == "POST") {
-    var data = "";
     req.on("data", function (chunk) {
       data += chunk;
     });
-    console.log(data);
-    data = qs.parse(data);
-    console.log(data);
+    req.on("end", function () {
+      var parsedData = qs.parse(data);
+      console.log(parsedData);
+      var toAppend =
+        parsedData["studentId"] +
+        "," +
+        parsedData["firstName"] +
+        "," +
+        parsedData["lastName"] +
+        "," +
+        parsedData["age"] +
+        "," +
+        parsedData["gender"] +
+        "," +
+        parsedData["degree"] +
+        "\n";
+      fs.appendFile("../student.csv", toAppend, function (err) {
+        if (err) throw err;
+        console.log("Data updated into student.csv");
+      });
+    });
   }
-  res.writeHead(200, {
-    "Content-Type": "text/html",
-  });
-  res.write("<h1>Saved to student.csv</h1>\n");
-  res.end;
+  fs.createReadStream("../html/studentDetail.html", "utf-8").pipe(res);
 }
+
+function reqSearch(req, res) {}
 
 function error(req, res) {
   console.log("Error function was called");
@@ -108,5 +126,6 @@ exports.reqSearchCss = reqSearchCss;
 exports.reqUploadCss = reqUploadCss;
 
 exports.reqStudentDetail = reqStudentDetail;
+exports.reqSearch = reqSearch;
 
 exports.error = error;

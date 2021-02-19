@@ -6,8 +6,8 @@
       content="width=device-width, initial-scale=1.0"
       charset="UTF-8"
     />
-    <link rel="stylesheet" type="text/css" href="/searchCss" />
-    <title>Search</title>
+    <link rel="stylesheet" type="text/css" href="/indexCss" />
+    <title>Student Portal</title>
   </head>
   <body>
     <!-- Navbar -->
@@ -19,25 +19,8 @@
         <a href="/uploadpage" class="navbar-item">Upload Image</a>
       </div>
     </div>
-    <!-- Search Form -->
     <div class="content-container">
-      <form
-        action="/search"
-        id="search"
-        method="POST"
-        onsubmit="return validate();"
-      >
-        <h1>Search Degree</h1>
-        <label for="degree">Degree: </label>
-        <input type="text" name="degree" required="required" />
-        <br />
-        <button type="submit">Submit</button>
-      </form>
+      <h1>Details saved to student.csv!</h1>
     </div>
-    <script type="text/javascript">
-      function validate() {
-        reg = /\d/;
-      }
-    </script>
   </body>
 </html>

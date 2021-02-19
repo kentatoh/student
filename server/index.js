@@ -15,6 +15,7 @@ var handle = {
   "/searchCss": handlers.reqSearchCss,
   "/uploadCss": handlers.reqUploadCss,
   "/studentDetail": handlers.reqStudentDetail,
+  "/search": handlers.reqSearch,
   error: handlers.error,
 };
 

@@ -37,6 +37,15 @@
     <script type="text/javascript">
       function validate() {
         reg = /\d/;
+        var searchDegree = document.forms["search"]["degree"].value;
+        if (searchDegree.trim() == "") {
+          alert("Please fill in the blank");
+          return false;
+        } else if (reg.test(searchDegree)) {
+          alert("Degree should not contain number");
+          return false;
+        }
+        return true;
       }
     </script>
   </body>

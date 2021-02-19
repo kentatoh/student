@@ -79,12 +79,12 @@
         var gender = document.forms["student-form"]["gender"].value;
 
         if (
-          studentId == "" ||
-          firstName == "" ||
-          lastName == "" ||
-          age == "" ||
+          studentId.trim() == "" ||
+          firstName.trim() == "" ||
+          lastName.trim() == "" ||
+          age.trim() == "" ||
           gender == "" ||
-          degree == ""
+          degree.trim() == ""
         ) {
           alert("Please fill in all blanks");
           return false;

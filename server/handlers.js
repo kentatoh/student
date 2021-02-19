@@ -2,8 +2,10 @@
 
 const qs = require("querystring");
 const fs = require("fs");
+const readline = require("readline");
 const { request } = require("http");
 const { parse } = require("path");
+const { listeners } = require("process");
 
 // *************** Pages ***************
 function reqStart(req, res) {
@@ -101,10 +103,68 @@ function reqStudentDetail(req, res) {
       });
     });
   }
+  res.writeHead(200, {
+    "Content-Type": "text/html",
+  });
   fs.createReadStream("../html/studentDetail.html", "utf-8").pipe(res);
 }
 
-function reqSearch(req, res) {}
+function reqSearch(req, res) {
+  console.log("Search function was called");
+  var data = "";
+  var toSearch = "";
+  var results = [];
+
+  if (req.method == "POST") {
+    req.on("data", function (chunk) {
+      data += chunk;
+    });
+
+    req.on("end", function () {
+      var parsedQuery = qs.parse(data);
+      toSearch = parsedQuery["degree"];
+      console.log("To search for: " + toSearch);
+      var readStream = fs.createReadStream("../student.csv");
+      readStream.on("data", function (chunk) {
+        var line = chunk.toString();
+        line = line.split("\n");
+        for (var i = 0; i < line.length - 1; i++) {
+          var header = line[i].split(",");
+          if (header[5].toLowerCase() == toSearch.toLowerCase()) {
+            results.push(header);
+          }
+        }
+
+        res.writeHead(200, {
+          "Content-Type": "text/html",
+        });
+        res.write("<h1>Hello</h1>\n");
+        res.write(
+          "<table><tr>" +
+            "<th>ID</th>" +
+            "<th>First Name</th>" +
+            "<th>Last Name</th>" +
+            "<th>Age</th>" +
+            "<th>Gender</th>" +
+            "<th>Degree</th>" +
+            "</tr></tr>"
+        );
+
+        for (var i = 0; i < results.length; i++) {
+          res.write("<td>" + results[i][0] + "</td>");
+          res.write("<td>" + results[i][1] + "</td>");
+          res.write("<td>" + results[i][2] + "</td>");
+          res.write("<td>" + results[i][3] + "</td>");
+          res.write("<td>" + results[i][4] + "</td>");
+          res.write("<td>" + results[i][5] + "</td></tr>\n");
+        }
+        res.write("</table>");
+        console.log("Search results displayed onto browser");
+        res.end();
+      });
+    });
+  }
+}
 
 function error(req, res) {
   console.log("Error function was called");

@@ -3,9 +3,7 @@
 const qs = require("querystring");
 const fs = require("fs");
 const readline = require("readline");
-const { request } = require("http");
-const { parse } = require("path");
-const { listeners } = require("process");
+const formidable = require("formidable");
 
 // *************** Pages ***************
 function reqStart(req, res) {
@@ -97,7 +95,7 @@ function reqStudentDetail(req, res) {
         "," +
         parsedData["degree"] +
         "\n";
-      fs.appendFile("../student.csv", toAppend, function (err) {
+      fs.appendFile("../data/student.csv", toAppend, function (err) {
         if (err) throw err;
         console.log("Data updated into student.csv");
       });
@@ -124,7 +122,7 @@ function reqSearch(req, res) {
       var parsedQuery = qs.parse(data);
       toSearch = parsedQuery["degree"];
       console.log("To search for: " + toSearch);
-      var readStream = fs.createReadStream("../student.csv");
+      var readStream = fs.createReadStream("../data/student.csv");
       readStream.on("data", function (chunk) {
         var line = chunk.toString();
         line = line.split("\n");
@@ -147,7 +145,7 @@ function reqSearch(req, res) {
             "<th>Age</th>" +
             "<th>Gender</th>" +
             "<th>Degree</th>" +
-            "</tr></tr>"
+            "</tr>"
         );
 
         for (var i = 0; i < results.length; i++) {
@@ -164,6 +162,29 @@ function reqSearch(req, res) {
       });
     });
   }
+}
+
+function reqUpload(req, res) {
+  console.log("Upload function was called");
+  var form = new formidable.IncomingForm();
+  form.uploadDir = "../tmp";
+  form.parse(req, function (err, field, file) {
+    console.log("Parsing done");
+  });
+  res.writeHead(200, {
+    "Content-Type": "text/html",
+  });
+  res.write("Received image:<br />");
+  res.write("<img src='/show' />");
+  res.end();
+}
+
+function reqShow(req, res) {
+  console.log("Show function was called");
+  res.writeHead(200, {
+    "Content-Type": "image/png",
+  });
+  fs.createReadStream("../images/test.png").pipe(res);
 }
 
 function error(req, res) {
@@ -187,5 +208,7 @@ exports.reqUploadCss = reqUploadCss;
 
 exports.reqStudentDetail = reqStudentDetail;
 exports.reqSearch = reqSearch;
+exports.reqUpload = reqUpload;
+exports.reqShow = reqShow;
 
 exports.error = error;

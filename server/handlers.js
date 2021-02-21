@@ -138,29 +138,34 @@ function reqSearch(req, res) {
         res.writeHead(200, {
           "Content-Type": "text/html",
         });
-        res.write("<h1>Hello</h1>\n");
-        res.write(
-          "<table><tr>" +
-            "<th>ID</th>" +
-            "<th>First Name</th>" +
-            "<th>Last Name</th>" +
-            "<th>Age</th>" +
-            "<th>Gender</th>" +
-            "<th>Degree</th>" +
-            "</tr>"
-        );
+        res.write("<h1>Results for " + toSearch + ":</h1>");
+        if (count != 0) {
+          res.write(
+            "<table><tr>" +
+              "<th>ID</th>" +
+              "<th>First Name</th>" +
+              "<th>Last Name</th>" +
+              "<th>Age</th>" +
+              "<th>Gender</th>" +
+              "<th>Degree</th>" +
+              "</tr>"
+          );
 
-        for (var i = 0; i < results.length; i++) {
-          res.write("<td>" + results[i][0] + "</td>");
-          res.write("<td>" + results[i][1] + "</td>");
-          res.write("<td>" + results[i][2] + "</td>");
-          res.write("<td>" + results[i][3] + "</td>");
-          res.write("<td>" + results[i][4] + "</td>");
-          res.write("<td>" + results[i][5] + "</td></tr>\n");
+          for (var i = 0; i < results.length; i++) {
+            res.write("<td>" + results[i][0] + "</td>");
+            res.write("<td>" + results[i][1] + "</td>");
+            res.write("<td>" + results[i][2] + "</td>");
+            res.write("<td>" + results[i][3] + "</td>");
+            res.write("<td>" + results[i][4] + "</td>");
+            res.write("<td>" + results[i][5] + "</td></tr>\n");
+          }
+          res.write("<tr><td>Total: </td><td>" + count + "</td></tr>");
+          res.write("</table>");
+          console.log("Search results displayed onto browser");
+        } else {
+          res.write("<h1>No results found</h1>");
         }
-        res.write("<tr><td>Count</td><td>" + count + "</td></tr>");
-        res.write("</table>");
-        console.log("Search results displayed onto browser");
+        res.write('<a href="/searchpage">Back</a>');
         res.end();
       });
     });
@@ -179,6 +184,7 @@ function reqUpload(req, res) {
   });
   res.write("Received image:<br />");
   res.write("<img src='/show' />");
+  res.write('<br /><a href="/uploadpage">Back</a>');
   res.end();
 }
 

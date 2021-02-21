@@ -1,4 +1,7 @@
 /** Navbar **/
+body {
+  color: #293241;
+}
 .navbar-container {
   height: 80px;
   display: flex;
@@ -27,37 +30,37 @@
 }
 
 .content-container {
-  padding-top: 20px;
   display: flex;
-  margin: 0 auto;
-  width: 50%;
-  background-color: #fff;
+  align-items: center;
+  align-content: center;
+  padding-top: 32px;
 }
 
-.student-form {
-  align-content: center;
+#student-form {
   align-items: center;
   margin: 0 auto;
-  padding: 10px;
 }
 
-.student-form input {
+#student-form input {
   outline: 0;
   border-width: 0 0 2px;
   border-color: #000;
 }
 
-.student-form button {
+#student-form button {
   background-color: #555;
   color: #fff;
   border: none;
-  padding: 12px 28px;
-  margin-top: 20px;
+  width: 100%;
+  padding: 8px 20px;
+  margin: 0 auto;
+  margin-top: 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
+  border-radius: 12px;
 }
 
-.student-form input:focus {
+#student-form input:focus {
   outline: none;
 }

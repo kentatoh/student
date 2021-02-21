@@ -119,6 +119,7 @@ function reqSearch(req, res) {
     });
 
     req.on("end", function () {
+      var count = 0;
       var parsedQuery = qs.parse(data);
       toSearch = parsedQuery["degree"];
       console.log("To search for: " + toSearch);
@@ -130,6 +131,7 @@ function reqSearch(req, res) {
           var header = line[i].split(",");
           if (header[5].toLowerCase() == toSearch.toLowerCase()) {
             results.push(header);
+            count++;
           }
         }
 
@@ -156,6 +158,7 @@ function reqSearch(req, res) {
           res.write("<td>" + results[i][4] + "</td>");
           res.write("<td>" + results[i][5] + "</td></tr>\n");
         }
+        res.write("<tr><td>Count</td><td>" + count + "</td></tr>");
         res.write("</table>");
         console.log("Search results displayed onto browser");
         res.end();

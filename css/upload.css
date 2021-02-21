@@ -30,9 +30,24 @@
   display: flex;
   align-items: center;
   align-content: center;
+  padding-top: 32px;
 }
 
 .image-form {
   align-items: center;
   margin: 0 auto;
+}
+
+.image-form button {
+  background-color: #555;
+  color: #fff;
+  border: none;
+  width: 100%;
+  padding: 8px 20px;
+  margin: 0 auto;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 12px;
 }

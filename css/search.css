@@ -25,3 +25,35 @@
   padding: 0.5rem 1rem;
   height: 100%;
 }
+
+.content-container {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  padding-top: 32px;
+}
+
+#search {
+  align-items: center;
+  margin: 0 auto;
+}
+
+#search input {
+  outline: 0;
+  border-width: 0 0 2px;
+  border-color: #000;
+}
+
+#search button {
+  background-color: #555;
+  color: #fff;
+  border: none;
+  width: 100%;
+  padding: 8px 20px;
+  margin: 0 auto;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 12px;
+}

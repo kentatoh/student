@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
-      charset="UTF-8"
     />
     <link rel="stylesheet" type="text/css" href="/searchCss" />
     <title>Search</title>
@@ -24,12 +23,12 @@
       <form
         action="/search"
         id="search"
-        method="POST"
+        method="post"
         onsubmit="return validate();"
       >
         <h1>Search Degree</h1>
         <label for="degree">Degree: </label>
-        <input type="text" name="degree" required="required" />
+        <input type="text" id="degree" name="degree" required="required" />
         <br />
         <button type="submit">Submit</button>
       </form>

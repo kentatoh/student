@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
-      charset="UTF-8"
     />
     <link rel="stylesheet" type="text/css" href="/uploadCss" />
     <title>Upload Image</title>
@@ -25,10 +24,11 @@
         class="image-form"
         action="/upload"
         enctype="multipart/form-data"
-        method="POST"
+        method="post"
       >
         <h1>Upload Image</h1>
-        <input type="file" name="upload" multiple="multiple" />
+        <label for="upload">Upload</label>
+        <input type="file" id="upload" name="upload" multiple="multiple" />
         <br />
         <button type="submit">Upload File</button>
       </form>

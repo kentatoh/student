@@ -178,14 +178,21 @@ function reqUpload(req, res) {
   form.uploadDir = "../tmp";
   form.parse(req, function (err, field, file) {
     console.log("Parsing done");
+
+    fs.rename(file.upload.path, "../images/test.png", function (err) {
+      if (err) {
+        fs.unlink("../images/test.png");
+        fs.rename(file.upload.path, "../images/test.png");
+      }
+    });
+    res.writeHead(200, {
+      "Content-Type": "text/html",
+    });
+    res.write("Received image: <br />");
+    res.write("<img src='/show' />");
+    res.write('<br /><a href="/uploadpage">Back</a>');
+    res.end();
   });
-  res.writeHead(200, {
-    "Content-Type": "text/html",
-  });
-  res.write("Received image:<br />");
-  res.write("<img src='/show' />");
-  res.write('<br /><a href="/uploadpage">Back</a>');
-  res.end();
 }
 
 function reqShow(req, res) {

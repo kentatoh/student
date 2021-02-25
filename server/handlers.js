@@ -74,15 +74,15 @@ function reqUploadCss(req, res) {
 // *************** Functionality ***************
 function reqStudentDetail(req, res) {
   console.log("Student Detail function was called");
-  var data = "";
+  var data = ""; // Variable to store the data from the form
   if (req.method == "POST") {
     req.on("data", function (chunk) {
-      data += chunk;
+      data += chunk; // Concatenate the chunks into the data variable
     });
     req.on("end", function () {
-      var parsedData = qs.parse(data);
+      var parsedData = qs.parse(data); // Parse the data
       console.log(parsedData);
-      var toAppend =
+      var toAppend = // Store the data into csv format
         parsedData["studentId"] +
         "," +
         parsedData["firstName"] +
@@ -95,7 +95,7 @@ function reqStudentDetail(req, res) {
         "," +
         parsedData["degree"] +
         "\n";
-      fs.appendFile("../data/student.csv", toAppend, function (err) {
+      fs.appendFile("../data/student.csv", toAppend, function (err) { // Append the file and store the csv data line
         if (err) throw err;
         console.log("Data updated into student.csv");
       });
@@ -109,32 +109,33 @@ function reqStudentDetail(req, res) {
 
 function reqSearch(req, res) {
   console.log("Search function was called");
-  var data = "";
-  var toSearch = "";
-  var results = [];
+  var data = ""; // Variable to store the data from the form
+  var toSearch = ""; // The degree to be searched
+  var results = []; // Variable to store the results of the search
 
   if (req.method == "POST") {
     req.on("data", function (chunk) {
-      data += chunk;
+      data += chunk; // Concatenate the chunks into the dataa variable
     });
 
     req.on("end", function () {
-      var count = 0;
-      var parsedQuery = qs.parse(data);
-      toSearch = parsedQuery["degree"];
+      var count = 0; // Variable to note the number of search result
+      var parsedQuery = qs.parse(data); // Parse the data
+      toSearch = parsedQuery["degree"]; // User's input of the degree
       console.log("To search for: " + toSearch);
-      var readStream = fs.createReadStream("../data/student.csv");
+      var readStream = fs.createReadStream("../data/student.csv"); // Create a readstream to the student csv file
       readStream.on("data", function (chunk) {
-        var line = chunk.toString();
-        line = line.split("\n");
+        var line = chunk.toString(); // Reach each line of the csv file, and stringify it
+        line = line.split("\n"); // Split each line at \n (new line)
         for (var i = 0; i < line.length - 1; i++) {
-          var header = line[i].split(",");
-          if (header[5].toLowerCase() == toSearch.toLowerCase()) {
-            results.push(header);
+          var header = line[i].split(",");  // Futher split each line by the , and store it into a header array
+          if (header[5].toLowerCase() == toSearch.toLowerCase()) { // Array position 5 should be the degree
+            results.push(header); // If matches the search result, push the entire header into the result.
             count++;
           }
         }
-
+        
+        // Format to display the results
         res.writeHead(200, {
           "Content-Type": "text/html",
         });
